@@ -3,41 +3,41 @@ import { KeyboardAvoidingView, TouchableOpacity, TextInput, StyleSheet, Text, Vi
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import {createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as firebase from "firebase";
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAjhaKYI3CKPA8thTKWaCXURrh9c6ro78U",
-//   authDomain: "authentication-54034.firebaseapp.com",
-//   projectId: "authentication-54034",
-//   storageBucket: "authentication-54034.appspot.com",  
-//   messagingSenderId: "432112843981",
-//   appId: "1:432112843981:web:ba436deaab71436226fd84"
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyAjhaKYI3CKPA8thTKWaCXURrh9c6ro78U",
+  authDomain: "authentication-54034.firebaseapp.com",
+  projectId: "authentication-54034",
+  storageBucket: "authentication-54034.appspot.com",  
+  messagingSenderId: "432112843981",
+  appId: "1:432112843981:web:ba436deaab71436226fd84"
+};
 
-// // Initialize Firebase
-// let app;
+// Initialize Firebase
+let app;
 
-// if (firebase.apps.length === 0) {
-//   app = firebase.initializeApp(firebaseConfig);
-// } else {
-//   app = firebase.app()
-// }
+if (firebase.apps.length === 0) {
+  app = firebase.initializeApp(firebaseConfig);
+} else {
+  app = firebase.app()
+}
 
-// const auth1 = firebase.auth()
-const navigation = useNavigation()
+const auth1 = firebase.auth()
 
-function HomeScreen({navigation}){
+function HomeScreen(){
+  const navigation = useNavigation()
 
-  // const handleSignOut = () => {
-  //   auth1
-  //     .signOut()
-  //     .then(() => {
-  //       navigation.replace("Login")
-  //     })
-  //     .catch(error => alert(error.message))
-  // }
+  const handleSignOut = () => {
+    auth1
+      .signOut()
+      .then(() => {
+        navigation.replace("Login")
+      })
+      .catch(error => alert(error.message))
+  }
 
   return(
     <View style={styles.container}>
@@ -52,40 +52,40 @@ function HomeScreen({navigation}){
   )
 }
 
-function LoginScreen({navigation}) {
-  // const navigation = useNavigation()
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
+function LoginScreen() {
+  const navigation = useNavigation()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       navigation.replace("Home")
-  //     }
-  //   })
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigation.replace("Home")
+      }
+    })
       
-  //   return unsubscribe
-  // }, [])
+    return unsubscribe
+  }, [])
 
-  // const handleSignUp = () => {
-  //   auth1
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(userCredentials => {
-  //       const user = userCredentials.user;
-  //       console.log('Registered with:', user.email);
-  //     })
-  //     .catch(error => alert(error.message))
-  // }
+  const handleSignUp = () => {
+    auth1
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Registered with:', user.email);
+      })
+      .catch(error => alert(error.message))
+  }
 
-  // const handleLogin = () => {
-  //   auth1
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(userCredentials => {
-  //       const user = userCredentials.user;
-  //       console.log('Logged in with:', user.email);
-  //     })
-  //     .catch(error => alert(error.message))
-  // }
+  const handleLogin = () => {
+    auth1
+      .signInWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Logged in with:', user.email);
+      })
+      .catch(error => alert(error.message))
+  }
 
   return(
     <KeyboardAvoidingView
